@@ -1,0 +1,35 @@
+# Local NVIDIA files and machine state must never be published.
+.state/
+state/
+backup/
+backups/
+patched/
+prepared/
+original/
+*.dll
+*.exe
+*.mp4
+*.mkv
+*.reg
+*.log
+debug.log
+*_manifest.json
+helper-startup.json
+manifest.json
+
+# Python and editors
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.vscode/
+.idea/
+.DS_Store
+.env
+.env.*
+*.pem
+*.pfx

@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a supported-build installation or recording issue
+body:
+  - type: input
+    id: app-version
+    attributes:
+      label: NVIDIA App version
+      placeholder: '11.0.9.251'
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: GPU, driver, Windows and Python versions
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and expected/actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Redacted status or relevant error excerpt
+      description: Remove account names and personal paths. Do not upload NVIDIA binaries, full backups, or private recordings.
+      render: text

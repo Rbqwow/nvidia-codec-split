@@ -1,0 +1,302 @@
+{
+  "schema": 1,
+  "version": "11.0.9.251",
+  "architecture": "amd64",
+  "native": {
+    "relative": "ShadowPlay/NVSPCAPS/_nvspcaps64.dll",
+    "sha256": "097f45f1ac2bc4c88d55062ea12f137738a8b16c68952bc921669f7a24d7537a",
+    "changes": [
+      {
+        "name": "HEVC setter",
+        "rva": 1135040,
+        "offset": 1131968,
+        "original": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "patched": "803b007416813b483236350f856cb6ffff807b04000f8562b6ffffb801000000e9cbb5ffff"
+      },
+      {
+        "name": "HEVC setter branch",
+        "rva": 1116069,
+        "offset": 1112997,
+        "original": "0f8592000000",
+        "patched": "0f85154a0000"
+      },
+      {
+        "name": "HEVC bitrate range",
+        "rva": 1134576,
+        "offset": 1131504,
+        "original": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "patched": "488d1551c11c00488d4d1ce840e9efff85c00f85020b0000e948070000"
+      },
+      {
+        "name": "HEVC bitrate branch",
+        "rva": 1136463,
+        "offset": 1133391,
+        "original": "0f85b5030000",
+        "patched": "0f859bf8ffff"
+      },
+      {
+        "name": "HEVC settings getter",
+        "rva": 1141904,
+        "offset": 1138832,
+        "original": "4883ec288b91381b000083ea01743783ea01743283fa017439833d3c07270007c705f6052700070000007f1a448b81381b0000488d1596ac1e00488d0dcf052700e84acef0ff488d05137c1e004883c428c3488d05ff7b1e004883c428c3",
+        "patched": "4883ec288b91381b000083fa01740e83fa037412488d05457c1e00eb10488d0594a41c00eb07488d052b7c1e004883c428c39090909090909090909090909090909090909090909090909090909090909090909090909090909090909090"
+      },
+      {
+        "name": "Explicit H.264 for SDR",
+        "rva": 1049094,
+        "offset": 1046022,
+        "original": "817b1c80070000",
+        "patched": "e98c0000009090"
+      }
+    ]
+  },
+  "frontend": {
+    "files": [
+      {
+        "relative": "osc/main.cb3bd1642c6faf80.js",
+        "kind": "main",
+        "original_sha256": "7b9d4c59e46d2a229fe1640c5252fddbf2b29460273741b444ea18c1ad3cb30b",
+        "patched_sha256": "88d0828f8c5afd8a6a30d5a5c071719179f9f0018f407916dded6d8bf7e460ab",
+        "legacy_patched_sha256": [
+          "3130246a1c2dadcc4d71455816b8065f9bd7d9cb1dd4fad061d6ce0ef2adb13b"
+        ]
+      },
+      {
+        "relative": "osc/assets/i18n/ar_SA.json",
+        "kind": "locale",
+        "original_sha256": "d2ae1cad75efa8184d11accddbd6e6786f6ad868f420598d8f7c0866fda06f23",
+        "patched_sha256": "e39102f2032975f9224f0491f4628ca61ea4d9fe6584b0b2b8a7e0f9b835d287"
+      },
+      {
+        "relative": "osc/assets/i18n/bg_BG.json",
+        "kind": "locale",
+        "original_sha256": "065d779667c49e40cc485746f8d5f3f875e729b556fdbfe60a192ac8d6179df7",
+        "patched_sha256": "3a869537c5f4bbb75045a19324d7af50d78fd01490e236e419f2d4691d2d107f"
+      },
+      {
+        "relative": "osc/assets/i18n/cs_CZ.json",
+        "kind": "locale",
+        "original_sha256": "def5190d2a81afb4a9ed60484644e6b53797d5da694321bb28e503aacc364201",
+        "patched_sha256": "2ea03686cb9be908493ead6a46e0bd315bc341e4266be7638297a93ee103f4eb"
+      },
+      {
+        "relative": "osc/assets/i18n/da_DK.json",
+        "kind": "locale",
+        "original_sha256": "7f7a00530f4b6ea49b2936d92e6d7e8892d9fa375922034199c33182e0b1db25",
+        "patched_sha256": "7d28616e5ccbb1810e743afe5e5fc456c77aaf140ba901e0688699674b43cf05"
+      },
+      {
+        "relative": "osc/assets/i18n/de_DE.json",
+        "kind": "locale",
+        "original_sha256": "2b546e338917e726c429121298e50cc9fe50872fd7e0ff32d79799b267757b46",
+        "patched_sha256": "bc098af9cd96c331a6cd59be36e6b9ca292c37370a63d58396f817bece666f2d"
+      },
+      {
+        "relative": "osc/assets/i18n/el_GR.json",
+        "kind": "locale",
+        "original_sha256": "849e8d413b25320280950de02d28bae889c8084fdecc39758135961d3a53bebe",
+        "patched_sha256": "4469cf4ce8e53f3fa275c62e4b69e6e9d4628c8326a9c5e2805d2e52d253bd54"
+      },
+      {
+        "relative": "osc/assets/i18n/en_GB.json",
+        "kind": "locale",
+        "original_sha256": "e808c511de268fc0e3627f270f2554ee805e645a1dcd0227b17a6fd225d43fa9",
+        "patched_sha256": "5d3b1e102085ead82f9470ffbe2fcc9c91ac99cb667523df63eab6495d0f2830"
+      },
+      {
+        "relative": "osc/assets/i18n/en_US.json",
+        "kind": "locale",
+        "original_sha256": "1048bcc92220b58b209d1e21acbce11394468acf4df7c9582bfe695a6732d4d7",
+        "patched_sha256": "6c9cfd8f66bf71c8cbace930bb614de83348d0948455c6fd1b973d36b1704c78"
+      },
+      {
+        "relative": "osc/assets/i18n/es_ES.json",
+        "kind": "locale",
+        "original_sha256": "3cbbc4171d4b435b358d7272a3ada3d2093f0c260465b1e2bb5ba77a1d439122",
+        "patched_sha256": "627fc613feee87260367bbcef7738bbffb643b9696f15f98593712d8a965d2ec"
+      },
+      {
+        "relative": "osc/assets/i18n/es_MX.json",
+        "kind": "locale",
+        "original_sha256": "a250c219a8d7d8cbc81efb12eb9a784afb2a5421734826165c82db7da88b0585",
+        "patched_sha256": "12142c74780702fe644d88cdf9568725eaa280a04c965790030a917da2f03040"
+      },
+      {
+        "relative": "osc/assets/i18n/fi_FI.json",
+        "kind": "locale",
+        "original_sha256": "6dce46b72a777859d45ea6071a9799b9cbea84c69ee33caae44dc75e05ad11c3",
+        "patched_sha256": "e178d81648d443949039b694adfc0af77a003af966e9ed12d4b45f993fda77a0"
+      },
+      {
+        "relative": "osc/assets/i18n/fr_FR.json",
+        "kind": "locale",
+        "original_sha256": "d0baaf65e8a0bdf0dfe471abe1f31eaa7bc2d3129c155438d5f37246c65625d9",
+        "patched_sha256": "5b84d7c130cd5561b353a425f951a908c11432f0cbf2dac981bcb6c1b3f7f965"
+      },
+      {
+        "relative": "osc/assets/i18n/hr_HR.json",
+        "kind": "locale",
+        "original_sha256": "a3f69b3483f2f0b64114022b071cc81a2c30a8cf8dccf9aac31d324ef6cdfdfa",
+        "patched_sha256": "a2079fcbead03af55386fcf3e1bba223cd04efe26cfbc6497c5cf41f6198dddf"
+      },
+      {
+        "relative": "osc/assets/i18n/hu_HU.json",
+        "kind": "locale",
+        "original_sha256": "61f9a10ecc767bebf860529d3b462aa1274ee071d0c8c60aadda31816e0f1948",
+        "patched_sha256": "0d865aaaf86357d9e70b5fcb47e9cc045b00ef5c57adb4f026e52ffacede0700"
+      },
+      {
+        "relative": "osc/assets/i18n/it_IT.json",
+        "kind": "locale",
+        "original_sha256": "ffa1b55b6315478c9a0b0307fe2bb94c80ad0041d2de1a6d92541d36e712e2d0",
+        "patched_sha256": "80b2f76de75b8934807bc19773d34b4f7cace08c6bfced0a0332381b8a0fbc40"
+      },
+      {
+        "relative": "osc/assets/i18n/ja_JP.json",
+        "kind": "locale",
+        "original_sha256": "d957f5aa61b3d26a3642271242307f59c96d32e017fb2b8abed9e4217566c113",
+        "patched_sha256": "087fbfbe1cceef3043b638853518951d3d535ec248cb7b85ba614ca26c41ce53"
+      },
+      {
+        "relative": "osc/assets/i18n/ko_KR.json",
+        "kind": "locale",
+        "original_sha256": "e9ede5416e540923e933465764954f716c826e6ced988ecf918c5d2e5a57dfb0",
+        "patched_sha256": "da7c869ccc0ca501bbf24b4c970d01ef468a3a61eabfa5ff19d20d7f2266c336"
+      },
+      {
+        "relative": "osc/assets/i18n/nb_NO.json",
+        "kind": "locale",
+        "original_sha256": "0a94b237dee62e4aad9e973f935db34d1a5716adfb21e4ece5f41996daca613b",
+        "patched_sha256": "72c4dbda769764605f4cc9dd75d52b6695094fffaa46d0a1ebda7aadea905a42"
+      },
+      {
+        "relative": "osc/assets/i18n/nl_NL.json",
+        "kind": "locale",
+        "original_sha256": "c90d78fbe541ae41794334d9dad0ae70c54145f6da3560e33f72acad30fb8904",
+        "patched_sha256": "dad645800c1afe99f099da5266cf3d20a0eae534ee70d72a960e8164556b7c77"
+      },
+      {
+        "relative": "osc/assets/i18n/pl_PL.json",
+        "kind": "locale",
+        "original_sha256": "29b2426bdb34cde1d68cf04c04e259f6582be94aaaa0e21c20e0e414fae708a9",
+        "patched_sha256": "f0de0671a4533f052370a11365fc0f2e437f8fe2341942e084a60b9bd8f2be54"
+      },
+      {
+        "relative": "osc/assets/i18n/pt_BR.json",
+        "kind": "locale",
+        "original_sha256": "66e22c75919ea38e75a37428d8e192b7a26c3c9fbef256d2b88e2672c5a7d682",
+        "patched_sha256": "ba1e194bc878b2f12d69561db31d5c9e262cfa5a9e31857f9957e1dae4990663"
+      },
+      {
+        "relative": "osc/assets/i18n/pt_PT.json",
+        "kind": "locale",
+        "original_sha256": "675296b29a235780f5eb09ceedbb499875dbb5d8f533b84f85f78c00c92f9589",
+        "patched_sha256": "5f3ab80e29c1b8098b3a67f13664f8b9acee9822c1fcd5b0abce3cb279e8db13"
+      },
+      {
+        "relative": "osc/assets/i18n/ro_RO.json",
+        "kind": "locale",
+        "original_sha256": "2b478b92a2e821001702818a953f76302f44bf53e461ebe5421124514ff631f0",
+        "patched_sha256": "2ffad651b58655dd1e8a6f26267e226c41eb5eafd8e774f1d9a0bffa79b8b7d8"
+      },
+      {
+        "relative": "osc/assets/i18n/ru_RU.json",
+        "kind": "locale",
+        "original_sha256": "373cffdac58b28289f04ad7b324ff53e081a3bedce7eb3ae072a20df2315d6f7",
+        "patched_sha256": "6aaf26c42c197bf8fbe33e6429ace80400d9112a133d221652e3a1a1dc2a9002"
+      },
+      {
+        "relative": "osc/assets/i18n/sk_SK.json",
+        "kind": "locale",
+        "original_sha256": "96dbd8d6fe18ca879d04bd960881bfdfb6c4e5a4e39e273480860561fb28ecb7",
+        "patched_sha256": "346bd7b9c49372981731241013ae7007a828e59aedf8b060856accc250dcf503"
+      },
+      {
+        "relative": "osc/assets/i18n/sl_SI.json",
+        "kind": "locale",
+        "original_sha256": "4297c1b0c6fa7883591ad7b87c819a72822c030de0832de6c8114b9f83142157",
+        "patched_sha256": "585bf83cbb37fe2280f7b19996d7dd685357109df42bb57c63e40cdd89d1919f"
+      },
+      {
+        "relative": "osc/assets/i18n/sv_SE.json",
+        "kind": "locale",
+        "original_sha256": "a1011867eeb786a86bf78f16a02d160585405f9e286291cb8c457b7683bd30c6",
+        "patched_sha256": "0530b01320fdbaa0a06fad8fee3015b88d248b84e90beef9e641244568ea83bd"
+      },
+      {
+        "relative": "osc/assets/i18n/th_TH.json",
+        "kind": "locale",
+        "original_sha256": "68647d1a6f8fcccd0d3c629183dc8e23c9aa2148394055debddd72d833d75c48",
+        "patched_sha256": "17bd122734806abdf2f71d1e02b487a6f04022a6296cee71ab7cc11f6f181632"
+      },
+      {
+        "relative": "osc/assets/i18n/tr_TR.json",
+        "kind": "locale",
+        "original_sha256": "5f178f9263256d1d8bd53d8fafbbac37e843663d1711ca90178a8f725eceaf9a",
+        "patched_sha256": "3a742d4cb22628db978330c0a23edb317d66e9bc1c7bc9417879c712722566db"
+      },
+      {
+        "relative": "osc/assets/i18n/uk_UA.json",
+        "kind": "locale",
+        "original_sha256": "eacf2efdc3417aa5b87c50f994c22b9542de69628d8b284e726224e660a8358c",
+        "patched_sha256": "b19cf8bf2be21e73ab6cfbc74e76135bcb075df7f1af4329b59872c446870ab9"
+      },
+      {
+        "relative": "osc/assets/i18n/zh_CN.json",
+        "kind": "locale",
+        "original_sha256": "27b5c74d2bf76eb48039b412cc78a3a83e394143a997e16bb13fb75065ab01a8",
+        "patched_sha256": "d8a9b7700902f75c1d994b3849842794ee295b77a2230238424069b86538286c"
+      },
+      {
+        "relative": "osc/assets/i18n/zh_TW.json",
+        "kind": "locale",
+        "original_sha256": "13fd31d648bbb17e9afa27fb84e9a20337be2268e3dde59d576cf309a2bd3007",
+        "patched_sha256": "5511a42e01d55e41cef35222cfc43f4680eaf48eb2a8e9587f253a234ec7ffd7"
+      }
+    ],
+    "edits": [
+      {
+        "name": "Preserve HEVC selection",
+        "old": "convertCodec(ve){return\"AV1\"===ve?ee.AV1:ee.H264_HEVC}",
+        "new": "convertCodec(ve){return\"H265\"===ve?ee.H265:\"AV1\"===ve?ee.AV1:ee.H264_HEVC}",
+        "count": 1
+      },
+      {
+        "name": "Check hardware and patched backend",
+        "old": "this.bridgeService.executeCommand(F.T.Share.Shareserver.GetInstantReplaySettings)]).pipe((0,a.T)(([ve,oe,Pe])=>",
+        "new": "this.bridgeService.executeCommand(F.T.Share.Shareserver.GetInstantReplaySettings),this.bridgeService.executeCommand(F.T.Share.Shareserver.GetHevcSupportedState),this.bridgeService.executeCommand(F.T.Share.Shareserver.GetSupportedBitratesFramerates,{quality:ue.VeryGood,resolution:me.In_game,codec:ee.H265,framerate:60}).pipe((0,a.T)(()=>!0),(0,r.W)(()=>(0,b.of)(!1)))]).pipe((0,a.T)(([ve,oe,Pe,hevcSupport,splitHevc])=>",
+        "count": 1
+      },
+      {
+        "name": "Expose separate HEVC option",
+        "old": "codecs:ve.codecs,frameRatesDefault:void 0,codecDefault:ve.defaultCodec,",
+        "new": "codecs:[...new Set(ve.codecs.flatMap(codec=>codec===ee.H264_HEVC&&hevcSupport.enable&&splitHevc?[codec,ee.H265]:[codec]))],frameRatesDefault:void 0,codecDefault:ve.defaultCodec,",
+        "count": 1
+      },
+      {
+        "name": "Codec option labels",
+        "old": "\"H264/HEVC\"===Do&&(Ps=this.translateService.instant(this.hevcSupported?\"capture.CodecH264HEVC\":\"capture.CodecH264AV1\")),",
+        "new": "\"H264/HEVC\"===Do&&(Ps=this.translateService.instant(\"capture.CodecH264\")),\"H265\"===Do&&(Ps=this.translateService.instant(\"capture.CodecHEVC\")),",
+        "count": 1
+      },
+      {
+        "name": "HEVC help after selection",
+        "old": "this.videoSpecs.codecs[pe]===_.m_.H264_HEVC,",
+        "new": "[_.m_.H264_HEVC,_.m_.H265].includes(this.videoSpecs.codecs[pe]),",
+        "count": 1
+      },
+      {
+        "name": "HEVC help after reopening",
+        "old": "this.videoSpecs.codecs[to]===_.m_.H264_HEVC}",
+        "new": "[_.m_.H264_HEVC,_.m_.H265].includes(this.videoSpecs.codecs[to])}",
+        "count": 1
+      },
+      {
+        "name": "Correct codec names in G-Assist",
+        "old": "[\"h264\",\"hevc\",\"h264/hevc\"].includes(De.toLowerCase())&&(De=y.O.Share.Shareserver.Codec.H264_HEVC),",
+        "new": "[\"h264\",\"h.264\",\"h264/hevc\"].includes(De.toLowerCase())&&(De=y.O.Share.Shareserver.Codec.H264_HEVC),[\"hevc\",\"h265\",\"h.265\"].includes(De.toLowerCase())&&(De=y.O.Share.Shareserver.Codec.H265),",
+        "count": 1
+      }
+    ]
+  }
+}
