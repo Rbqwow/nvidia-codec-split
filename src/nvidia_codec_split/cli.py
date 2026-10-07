@@ -4,22 +4,30 @@ import json
 import os
 import sys
 
-from .core import PatchError, apply_ui, child_path, default_app_root, default_state_dir, file_hash, load_profile, load_state, prepare, verify_native, verify_prepared
+from .core import PatchError, apply_ui, check_restore, child_path, default_app_root, default_state_dir, file_hash, load_profile, load_state, prepare, verify_native, verify_prepared
 
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="Version-checked NVIDIA App recording codec split")
-    parser.add_argument("command", choices=["prepare", "check", "apply-ui", "restore-ui", "patch-memory", "restore-memory", "status", "watch", "stop-watch"])
+    parser.add_argument("command", choices=["prepare", "import-legacy", "check", "check-restore", "apply-ui", "restore-ui", "patch-memory", "restore-memory", "status", "watch", "stop-watch"])
     parser.add_argument("--app-root", type=Path)
     parser.add_argument("--state-dir", type=Path)
     parser.add_argument("--profile", default="11.0.9.251")
     parser.add_argument("--original-frontend", type=Path, help="Original osc directory for migrating an already-patched installation")
+    parser.add_argument("--legacy-helper", type=Path, help="First-generation helper directory containing native_manifest.json")
+    parser.add_argument("--legacy-root", type=Path, help="Original local project directory if the installed legacy helper was removed")
     args = parser.parse_args(argv)
     try:
         state_dir = (args.state_dir or default_state_dir()).resolve()
         if args.command == "prepare":
             result = prepare(args.app_root or default_app_root(), state_dir, load_profile(args.profile), args.original_frontend)
             print(json.dumps({"profile": result["profile"], "files": len(result["files"]), "state_dir": str(state_dir)}, indent=2))
+            return 0
+        if args.command == "import-legacy":
+            from .legacy import import_legacy_restore
+            helper = args.legacy_helper or Path(os.environ["LOCALAPPDATA"]) / "NVIDIA Corporation/NVIDIA Overlay/CodecSplit"
+            result = import_legacy_restore(args.app_root or default_app_root(), state_dir, helper, args.profile, args.legacy_root)
+            print(json.dumps(result, indent=2))
             return 0
         if args.command == "stop-watch":
             from .watcher import stop
@@ -30,7 +38,9 @@ def main(argv=None) -> int:
         profile = load_profile(state["profile"])
         if args.app_root and args.app_root.resolve() != root.resolve():
             raise PatchError("App root differs from the prepared installation")
-        if args.command == "check":
+        if args.command == "check-restore":
+            result = check_restore(state_dir)
+        elif args.command == "check":
             verify_native(root, profile)
             verify_prepared(state_dir, state)
             for info in state["files"]:

@@ -2,6 +2,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import copy
 import json
+import shutil
 import sys
 import unittest
 from unittest.mock import patch
@@ -71,6 +72,21 @@ class LocalUI(unittest.TestCase):
         result = apply_ui(self.state, restore=True)
         self.assertEqual(target.read_bytes(), b"new vendor release")
         self.assertEqual(result["skipped_updated_files"], ["osc/main.js"])
+
+    def test_restore_needs_only_originals_not_generated_patch_files(self):
+        prepare(self.root, self.state, self.profile)
+        apply_ui(self.state)
+        shutil.rmtree(self.state / "prepared")
+        self.assertEqual(apply_ui(self.state, restore=True)["changed"], 2)
+        self.assertIn(b"AUTO", (self.root / "osc/main.js").read_bytes())
+
+    def test_damaged_last_original_prevents_all_restore_writes(self):
+        prepare(self.root, self.state, self.profile)
+        apply_ui(self.state)
+        (self.state / "original/osc/assets/i18n/zh_CN.json").write_bytes(b"damaged")
+        with self.assertRaisesRegex(PatchError, "original file changed"):
+            apply_ui(self.state, restore=True)
+        self.assertIn(b"HEVC", (self.root / "osc/main.js").read_bytes())
 
     def test_failed_second_replace_rolls_back_first(self):
         prepare(self.root, self.state, self.profile)

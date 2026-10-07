@@ -177,9 +177,12 @@ def prepare(app_root: Path, state_dir: Path, profile: dict, original_frontend: P
     return manifest
 
 
-def verify_prepared(state_dir: Path, manifest: dict) -> None:
+def verify_prepared(state_dir: Path, manifest: dict, original_only: bool = False) -> None:
     for info in manifest["files"]:
-        for folder, digest in [("original", info["original_sha256"]), ("prepared", info["patched_sha256"])]:
+        sources = [("original", info["original_sha256"])]
+        if not original_only:
+            sources.append(("prepared", info["patched_sha256"]))
+        for folder, digest in sources:
             file = child_path(state_dir, folder + "/" + info["relative"])
             if not file.is_file() or file_hash(file) != digest:
                 raise PatchError(f"Local {folder} file changed: {info['relative']}")
@@ -200,12 +203,13 @@ def replace_file(path: Path, data: bytes) -> None:
             temporary.unlink()
 
 
-def apply_ui(state_dir: Path, restore: bool = False, replace=replace_file) -> dict:
+def plan_ui(state_dir: Path, restore: bool = False) -> tuple[list, list]:
+    """Validate every source/target before installation or helper shutdown."""
     manifest = load_state(state_dir)
     profile = load_profile(manifest["profile"])
     root = Path(manifest["app_root"])
     allowed = {info["relative"] for info in profile["frontend"]["files"]}
-    if {info["relative"] for info in manifest["files"]} != allowed:
+    if len(manifest["files"]) != len(allowed) or {info["relative"] for info in manifest["files"]} != allowed:
         raise PatchError("Managed resources differ from the supported profile")
     expected = {info["relative"]: info for info in profile["frontend"]["files"]}
     for info in manifest["files"]:
@@ -215,7 +219,7 @@ def apply_ui(state_dir: Path, restore: bool = False, replace=replace_file) -> di
                 raise PatchError("State file hashes differ from the reviewed profile")
         if info.get("legacy_patched_sha256", []) != approved.get("legacy_patched_sha256", []):
             raise PatchError("State compatibility hashes differ from the reviewed profile")
-    verify_prepared(state_dir, manifest)
+    verify_prepared(state_dir, manifest, original_only=restore)
     if not restore:
         verify_native(root, profile)
     operations, skipped = [], []
@@ -238,6 +242,16 @@ def apply_ui(state_dir: Path, restore: bool = False, replace=replace_file) -> di
         if digest != desired_hash:
             folder = "original" if restore else "prepared"
             operations.append((target, current, child_path(state_dir, folder + "/" + info["relative"]).read_bytes()))
+    return operations, skipped
+
+
+def check_restore(state_dir: Path) -> dict:
+    operations, skipped = plan_ui(state_dir, restore=True)
+    return {"pending_ui_files": len(operations), "skipped_updated_files": skipped, "native_disk_modified": False}
+
+
+def apply_ui(state_dir: Path, restore: bool = False, replace=replace_file) -> dict:
+    operations, skipped = plan_ui(state_dir, restore)
     completed = []
     try:
         for target, old, new in operations:

@@ -27,7 +27,7 @@ powershell.exe -NoProfile -File .\Install.ps1 -Action Apply `
   -StateDir "$env:LOCALAPPDATA\NVIDIA Codec Split"
 ```
 
-若已装过此前的本机脚本，先通过旧脚本停用或还原助手，避免占用相同登录启动项。界面已经打过补丁而本项目没有原始备份时，需通过 `-OriginalFrontend` 提供已核实的原版 `osc` 目录。
+若已装过此前的本机脚本，先运行 `Restore.cmd`；它可以从旧安装迁移已校验的备份并还原，避免占用相同登录启动项。界面已经打过补丁而本项目没有原始备份时，需通过 `-OriginalFrontend` 提供已核实的原版 `osc` 目录。
 
 ## 实现与校验
 
@@ -47,7 +47,16 @@ python .\run.py status
 
 `native_original: true` 表示磁盘 DLL 与原版匹配。运行中的录制进程应显示六处 `patched`、零处 `unexpected`。`Check.cmd` 只校验安装文件、生成物和备份。
 
-要撤销，保存正在录制的内容并运行 **`Restore.cmd`**。它会等待助手退出、还原登录启动项和界面资源，并重启 NVIDIA 录制服务。已经被新版更新替换的文件会跳过，避免旧备份覆盖新版。完成还原前请保留状态目录。
+要撤销，保存正在录制的内容并运行 **`Restore.cmd`**。它先校验所有原版备份，再停止助手、还原界面并重启 NVIDIA 录制服务；管理员步骤成功后才还原登录启动项。公开版助手会正常退出；旧版助手的内存写入子进程会先完成事务，随后才重启服务。已经被新版更新替换的文件会跳过，避免旧备份覆盖新版。完成还原前请保留状态目录；`prepared` 中的生成文件不再是还原的前提。
+
+本项目没有 `manifest.json` 时，会通过旧助手的 `native_manifest.json` 定位原始备份和启动项记录。旧助手目录已删除时，还会查找本仓库旁的 `nvidia_codec_patch` 目录。旧项目在其他位置，或使用了自定义状态目录时：
+
+```powershell
+.\Restore.cmd -LegacyRoot 'C:\Backups\nvidia_codec_patch'
+.\Restore.cmd -StateDir 'C:\Backups\NVIDIA Codec Split'
+```
+
+旧运行时助手使用自定义路径时还需提供 `-LegacyHelper`。原始备份缺失或被修改会在 UAC 前报错，命令返回非零退出码。受支持版本还原后，`python .\run.py status` 应显示六处 `original`、零处 `patched`。`python .\run.py check-restore` 可在不依赖生成文件的情况下只读校验还原来源。
 
 NVIDIA App 更新后可能需要新的版本配置；不能只改哈希或跳过字节检查。完整流程见 [新版适配文档](docs/ADAPTATION.zh-CN.md)。
 

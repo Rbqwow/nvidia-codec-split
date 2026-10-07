@@ -24,7 +24,8 @@
 | [core.py](../src/nvidia_codec_split/core.py) | 配置验证、路径约束、本机资源生成、文件校验、安装/还原及回滚 |
 | [memory.py](../src/nvidia_codec_split/memory.py) | 模块发现、进程创建时间、字节校验、暂停/写入/恢复和写入回滚 |
 | [watcher.py](../src/nvidia_codec_split/watcher.py) | 按本机状态目录区分单实例，检测新进程、定期检查版本、响应停止事件 |
-| [cli.py](../src/nvidia_codec_split/cli.py) | prepare/check/status 与运行时命令 |
+| [legacy.py](../src/nvidia_codec_split/legacy.py) | 从旧助手或旧项目清单迁移已校验的原始备份及启动项记录 |
+| [cli.py](../src/nvidia_codec_split/cli.py) | prepare/import-legacy/check/check-restore/status 与运行时命令 |
 | [Install.ps1](../Install.ps1) | 普通用户管理备份与 HKCU，UAC 仅执行安装目录写入及服务重启 |
 | [tools/cdp.mjs](../tools/cdp.mjs) | 临时连接实际浮窗、执行诊断 JavaScript |
 
@@ -34,7 +35,9 @@
 
 适配前保存录制参数、结束正在录制的内容、关闭即时重放，停掉旧助手。公开版可用 `python run.py stop-watch`；完整卸载通过 `Restore.cmd`。助手停止后，已加载进程中的补丁可能仍存在；需要原版基线时重启 `NvContainerLocalSystem`，重新加载签名模块。
 
-公开版还原会跳过已被新版替换的界面文件，不把旧资源覆盖到新版。但早期本机脚本的还原器要求全部文件与旧清单匹配，更新后可能拒绝操作。遇到这种情况先停助手、清理其已登记的启动项，并核实原版模块已经重新加载；不要删除校验来强行套用旧备份。
+公开版还原会跳过已被新版替换的界面文件，不把旧资源覆盖到新版。0.1.1 起，`Restore.cmd` 也能迁移早期本机脚本的原始备份，不要求预先运行公开版 `Apply.cmd`，也不依赖旧补丁生成物。旧运行时目录已删除时，会查找本仓库旁的 `nvidia_codec_patch`；其他位置用 `Restore.cmd -LegacyRoot <旧项目目录>` 指定。保留旧项目的 `native_manifest.json`、原始 `osc` 备份和 `helper-startup.json`，不要删除校验来强行套用旧备份。
+
+还原前可用 `python run.py check-restore --state-dir <旧状态目录>` 只读校验。完整流程先验证原始备份，再停助手；旧助手的内存写入子进程必须正常完成，不能一起强制终止。UAC 步骤完成界面还原与服务重启后，普通用户步骤才恢复自己的 HKCU 登录启动项。受支持版本用 `status` 确认录制模块六处原始字节、零处补丁字节；缺失备份应在 UAC 前报错。
 
 读取版本与文件信息：
 

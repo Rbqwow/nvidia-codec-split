@@ -27,6 +27,10 @@ jobs:
         run: python -O -m unittest discover -s tests -v
       - name: Check CLI
         run: python run.py --help
+      - name: Test Windows helper shutdown
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: .\tests\test_installer.ps1
       - name: Build Python package
         run: python -m pip wheel . --no-deps --wheel-dir .state/wheels
       - name: Parse Windows installer

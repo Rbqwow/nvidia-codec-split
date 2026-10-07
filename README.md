@@ -27,7 +27,7 @@ powershell.exe -NoProfile -File .\Install.ps1 -Action Apply `
   -StateDir "$env:LOCALAPPDATA\NVIDIA Codec Split"
 ```
 
-If a previous local codec helper already owns the login entry, the installer asks you to stop/restore that installation first. An already-patched UI also needs its verified original `osc` directory through `-OriginalFrontend` if this project's local backups are not available.
+If the original local codec helper already owns the login entry, run `Restore.cmd` first; it can import that installation's verified backups. An already-patched UI also needs its verified original `osc` directory through `-OriginalFrontend` if this project's local backups are not available.
 
 ## What it changes
 
@@ -47,7 +47,16 @@ python .\run.py status
 
 `native_original: true` confirms the recording DLL matches the supported original. For the running recorder, all six regions should report `patched` and zero `unexpected` regions. `Check.cmd` checks the installed resources and local backups without modifying NVIDIA files.
 
-To uninstall, save active recordings and run **`Restore.cmd`**. It stops the helper gracefully, restores the login entry and original UI resources, and restarts the NVIDIA recording service. Files replaced by a newer NVIDIA update are skipped rather than overwritten with old backups. Keep the local state directory until restoration is complete.
+To uninstall, save active recordings and run **`Restore.cmd`**. It validates all original backups before stopping the helper, restores the UI, restarts the NVIDIA recording service, and restores the login entry after that step succeeds. The public helper stops gracefully; the original helper's memory-writing children are allowed to finish before the service restarts. Files replaced by a newer NVIDIA update are skipped rather than overwritten with old backups. Keep the local state directory until restoration is complete; generated files under `prepared` are not needed to uninstall.
+
+If this project's `manifest.json` is absent, restoration can import originals and startup metadata using the old helper's `native_manifest.json`. If that helper directory was removed, a sibling `nvidia_codec_patch` project is also detected. For a different location or a custom state directory:
+
+```powershell
+.\Restore.cmd -LegacyRoot 'C:\Backups\nvidia_codec_patch'
+.\Restore.cmd -StateDir 'C:\Backups\NVIDIA Codec Split'
+```
+
+Use `-LegacyHelper` as well if the old runtime helper was installed at a custom path. Missing or changed originals cause an error before UAC; the command returns a nonzero exit code. After a successful restore on the supported build, `python .\run.py status` reports six `original` regions and zero `patched` regions. `python .\run.py check-restore` checks the restore sources without requiring generated patch files.
 
 NVIDIA App updates can replace the UI or native code. A new version requires a new profile; changing only the hash or bypassing region checks is insufficient. See the [adaptation workflow](docs/ADAPTATION.zh-CN.md).
 
